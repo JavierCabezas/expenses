@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :expenditures
+
   resources :expense_types
 
   resources :users

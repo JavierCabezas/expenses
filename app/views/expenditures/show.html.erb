@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ammount:</strong>
+  <%= @expenditure.ammount %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @expenditure.status %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @expenditure.comment %>
+</p>
+
+<%= link_to 'Edit', edit_expenditure_path(@expenditure) %> |
+<%= link_to 'Back', expenditures_path %>

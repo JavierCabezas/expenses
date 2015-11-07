@@ -1,0 +1,29 @@
+<h1>Listing expenditures</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ammount</th>
+      <th>Status</th>
+      <th>Comment</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @expenditures.each do |expenditure| %>
+      <tr>
+        <td><%= expenditure.ammount %></td>
+        <td><%= expenditure.status %></td>
+        <td><%= expenditure.comment %></td>
+        <td><%= link_to 'Show', expenditure %></td>
+        <td><%= link_to 'Edit', edit_expenditure_path(expenditure) %></td>
+        <td><%= link_to 'Destroy', expenditure, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Expenditure', new_expenditure_path %>

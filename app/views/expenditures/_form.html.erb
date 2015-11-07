@@ -1,0 +1,29 @@
+<%= form_for(@expenditure) do |f| %>
+  <% if @expenditure.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@expenditure.errors.count, "error") %> prohibited this expenditure from being saved:</h2>
+
+      <ul>
+      <% @expenditure.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ammount %><br>
+    <%= f.text_field :ammount %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.text_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :comment %><br>
+    <%= f.text_area :comment %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
