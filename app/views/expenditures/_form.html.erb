@@ -11,18 +11,31 @@
     </div>
   <% end %>
 
-  <div class="field">
+   <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.select :user_id, User.pluck(:username, :id) %>
+   </div>
+
+   <div class="field">
+     <%= f.label :expense_type_id %><br>
+     <%= f.select :expense_type_id, ExpenseType.pluck(:name, :id) %>
+   </div>
+
+   <div class="field">
     <%= f.label :ammount %><br>
     <%= f.text_field :ammount %>
-  </div>
+   </div>
+
   <div class="field">
     <%= f.label :status %><br>
     <%= f.text_field :status %>
   </div>
+
   <div class="field">
     <%= f.label :comment %><br>
     <%= f.text_area :comment %>
   </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
