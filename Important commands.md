@@ -41,3 +41,11 @@ Creating a table with a (simple) relation to another:
 
 
     Finish the process by running rake db:migrate
+
+How to add new gems (extensions):
+    First we must add the gem on the Gemfile file (that's redundant)
+    Ex: gem "selectize-rails"
+
+    Then we must run bundle install so Rails will take care of installing the gems that we defined before
+    After that the extension installed by the gem is ready to use.
+
