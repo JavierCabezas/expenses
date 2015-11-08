@@ -1,17 +1,25 @@
+Create a new table:
+
+    rails generate model (table name) (field):type
+    Example:
+    rails g model month month:integer year:integer payed:boolean
+
 Generate a table with CRUD on the database:
+
     rails g scaffold (table_name) (column):(type)
 
 Update the database (both schema and data):
+
     rake db:migrate
     rake db:seed
 
-Add a new table:
+Add a new column to a table:
+
     Add a new row on an existing database:
     rails g migration AddCommentsToExpense
 
     Then the aplication will create a migration on expnese/db/migrate. Edit the change action with a code like this one:
     add_column :expenses, :comment, :text, null: true
-
 
 Creating a table with a (simple) relation to another:
 
@@ -39,13 +47,18 @@ Creating a table with a (simple) relation to another:
       end
     end
 
-
     Finish the process by running rake db:migrate
 
 How to add new gems (extensions):
+
     First we must add the gem on the Gemfile file (that's redundant)
     Ex: gem "selectize-rails"
 
     Then we must run bundle install so Rails will take care of installing the gems that we defined before
     After that the extension installed by the gem is ready to use.
 
+How to validate two fields at the same time:
+
+    validates_uniqueness_of :field1, :scope => :field2
+    In this software we can have the same month or the same year, but we can repeat the same month and year in the same record.
+    validates_uniqueness_of :month, :scope => :year
