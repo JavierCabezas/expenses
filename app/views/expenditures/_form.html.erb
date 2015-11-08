@@ -16,6 +16,11 @@
     <%= f.select :user_id, User.pluck(:username, :id) %>
    </div>
 
+    <div class="field">
+      <%= f.label :month_id %><br>
+      <%= f.select :month_id, Month.hash_month_and_year %>
+    </div>
+
    <div class="field">
      <%= f.label :expense_type_id %><br>
      <%= f.select :expense_type_id, ExpenseType.pluck(:name, :id) %>

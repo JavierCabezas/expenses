@@ -62,3 +62,21 @@ How to validate two fields at the same time:
     validates_uniqueness_of :field1, :scope => :field2
     In this software we can have the same month or the same year, but we can repeat the same month and year in the same record.
     validates_uniqueness_of :month, :scope => :year
+    
+    
+To make a method in a model that is accesible from the outside:
+
+    We must use self. before the method name. The return seems to be automatic. Lets say that we want to have a method in a model that returns an array for a dropdown list:
+    
+    def self.select_for_dropdown
+        [ ['Text for option one', 1], ['Text for option two', 2], .... ]
+    end
+      
+      
+How to return a hash with virtual methods from the database:
+    
+    This has almost nothing to do with the question but it may be interesting later: http://stackoverflow.com/questions/31304825/create-array-of-arrays-from-database-query-in-rails
+    This one is pretty interesting to: http://stackoverflow.com/questions/19380554/rails-how-to-convert-a-query-result-hash
+    
+    
+      
