@@ -4,7 +4,8 @@ class Month < ActiveRecord::Base
   validates_uniqueness_of :month, :scope => :year
 
   def month_and_year
-    self.month.to_s + '/' + self.year.to_s
+    Date::MONTHNAMES[self.month] + '/' + self.year.to_s
+
   end
 
   def self.hash_month_and_year
