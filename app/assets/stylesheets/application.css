@@ -12,6 +12,7 @@
  *
  *= require selectize
  *= require selectize.default
+ *= require purecss
  *= require_tree .
  *= require_self
  */
