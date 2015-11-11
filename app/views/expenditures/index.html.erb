@@ -27,3 +27,12 @@
 <br>
 
 <%= link_to 'New Expenditure', new_expenditure_path %>
+
+
+<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+
+<%= timeline [
+                     ["Washington", "1789-04-29", "1797-03-03"],
+                     ["Adams", "1797-03-03", "1801-03-03"],
+                     ["Jefferson", "1801-03-03", "1809-03-03"]
+             ] %>
