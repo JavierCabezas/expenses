@@ -8,6 +8,9 @@ Generate a table with CRUD on the database:
 
     rails g scaffold (table_name) (column):(type)
 
+Master database query (create, migrate and seed):
+    rake db:update
+
 Update the database (both schema and data):
 
     rake db:migrate
