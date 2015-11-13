@@ -1,4 +1,4 @@
-<%= form_for(@expenditure) do |f| %>
+<%= form_for(@expenditure, :html => {:class => "pure-form pure-form-aligned"}) do |f| %>
   <% if @expenditure.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@expenditure.errors.count, "error") %> prohibited this expenditure from being saved:</h2>
@@ -11,39 +11,40 @@
     </div>
   <% end %>
 
-   <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.select :user_id, User.pluck(:username, :id) %>
-   </div>
+  <fieldset>
+        <div class="pure-control-group">
+            <%= f.label :user_id %>
+            <%= f.select :user_id, User.pluck(:username, :id), {}, {:class => "pure-input-1-4" } %>
+        </div>
 
-    <div class="field">
-      <%= f.label :month_id %><br>
-      <%= f.select :month_id, Month.hash_month_and_year %>
-    </div>
+        <div class="pure-control-group">
+          <%= f.label :month_id %>
+          <%= f.select :month_id, Month.hash_month_and_year, {}, {:class => "pure-input-1-4" } %>
+        </div>
 
-   <div class="field">
-     <%= f.label :expense_type_id %><br>
-     <%= f.select :expense_type_id, ExpenseType.pluck(:name, :id) %>
-   </div>
+       <div class="pure-control-group">
+         <%= f.label :expense_type_id %>
+         <%= f.select :expense_type_id, ExpenseType.pluck(:name, :id), {}, {:class => "pure-input-1-4" } %>
+       </div>
 
-   <div class="field">
-    <%= f.label :ammount %><br>
-    <%= f.text_field :ammount %>
-   </div>
+       <div class="pure-control-group">
+        <%= f.label :ammount %>
+        <%= f.text_field :ammount , :class => "pure-input-1-4"%>
+       </div>
 
-  <div class="field">
-    <%= f.label :status %><br>
-    <%= f.text_field :status %>
-  </div>
+      <div class="pure-control-group">
+        <%= f.label :status %>
+        <%= f.text_field :status , :class => "pure-input-1-4"%>
+      </div>
 
-  <div class="field">
-    <%= f.label :comment %><br>
-    <%= f.text_area :comment %>
-  </div>
+      <div class="pure-control-group">
+        <%= f.label :comment %>
+        <%= f.text_area :comment , :class => "pure-input-1-4"%>
+      </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+        <%= f.submit :class => "pure-button pure-button-primary" %>
+
+  </fieldset>
 <% end %>
 
 <%= javascript_include_tag "expenditures_form" %>
