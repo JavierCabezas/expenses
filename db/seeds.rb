@@ -11,11 +11,13 @@ User.create(username: 'Pato')
 User.create(username: 'Mari')
 User.create(username: 'Javier')
 
-ExpenseType.create(name: 'Electricidad', is_bill: true)
-ExpenseType.create(name: 'Agua', is_bill: true)
-ExpenseType.create(name: 'Gas', is_bill: true)
-ExpenseType.create(name: 'Pan', is_bill: false)
-ExpenseType.create(name: 'Frutas / Verduras', is_bill: false)
+ExpenseType.create(name: 'Electricity', is_bill: true, is_fixed_cost: false)
+ExpenseType.create(name: 'Water', is_bill: true, is_fixed_cost: false)
+ExpenseType.create(name: 'Gas', is_bill: true, is_fixed_cost: false)
+ExpenseType.create(name: 'Bread', is_bill: false, is_fixed_cost: false)
+ExpenseType.create(name: 'Fruits / Vegetables', is_bill: false, is_fixed_cost: false)
+ExpenseType.create(name: 'Supermarket', is_bill: false, is_fixed_cost: false)
+ExpenseType.create(name: 'Internet', is_bill: true, is_fixed_cost: true)
 
 
 Month.create(month: 10, year: 2015, payed: false)
