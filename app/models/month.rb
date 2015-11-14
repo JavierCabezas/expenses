@@ -6,7 +6,6 @@ class Month < ActiveRecord::Base
 
   def month_and_year
     Date::MONTHNAMES[self.month] + '/' + self.year.to_s
-
   end
 
   def self.hash_month_and_year

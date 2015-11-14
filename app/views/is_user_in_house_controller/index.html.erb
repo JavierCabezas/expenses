@@ -1,2 +1,21 @@
-<h1>IsUserInHouseController#index</h1>
-<p>Find me in app/views/is_user_in_house_controller/index.html.erb</p>
+<h1> Is user in house? </h1>
+
+
+<table class="pure-table">
+  <thead>
+      <tr>
+        <td> Date </td>
+        <td> User </td>
+        <td> Was at home? </td>
+      </tr>
+  </thead>
+  <tbody>
+      <% @is.each do |isinhouse| %>
+        <tr>
+            <td> <%= isinhouse.day %>/<%= isinhouse.month.month_and_year %> </td>
+            <td> <%= isinhouse.user.username %> </td>
+            <td> <%= isinhouse.was_at_home %> </td>
+        </tr>
+      <% end %>
+  </tbody>
+</table>
