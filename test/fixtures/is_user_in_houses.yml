@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  month_id: 1
+  user_id: 1
+  day: 1
+  was_in_home: false
+
+two:
+  month_id: 1
+  user_id: 1
+  day: 1
+  was_in_home: false

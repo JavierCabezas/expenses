@@ -18,19 +18,19 @@
         </div>
 
         <div class="pure-control-group">
-          <%= f.label :month_id %>
-          <%= f.select :month_id, Month.hash_month_and_year, {}, {:class => "pure-input-1-4" } %>
+            <%= f.label :month_id %>
+            <%= f.select :month_id, Month.hash_month_and_year, {}, {:class => "pure-input-1-4" } %>
         </div>
 
-       <div class="pure-control-group">
-         <%= f.label :expense_type_id %>
-         <%= f.select :expense_type_id, ExpenseType.pluck(:name, :id), {}, {:class => "pure-input-1-4" } %>
-       </div>
+        <div class="pure-control-group">
+            <%= f.label :expense_type_id %>
+            <%= f.select :expense_type_id, ExpenseType.pluck(:name, :id), {}, {:class => "pure-input-1-4" } %>
+        </div>
 
-       <div class="pure-control-group">
-        <%= f.label :ammount %>
-        <%= f.text_field :ammount , :class => "pure-input-1-4"%>
-       </div>
+        <div class="pure-control-group">
+            <%= f.label :ammount %>
+            <%= f.number_field :ammount , :class => "pure-input-1-4", min: 1%>
+        </div>
 
       <div class="pure-control-group">
         <%= f.label :status %>

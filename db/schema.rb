@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113002923) do
+ActiveRecord::Schema.define(version: 20151113233029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,15 @@ ActiveRecord::Schema.define(version: 20151113002923) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_fixed_cost", default: true
+  end
+
+  create_table "is_user_in_houses", force: true do |t|
+    t.integer  "month_id"
+    t.integer  "user_id"
+    t.integer  "day"
+    t.boolean  "was_at_home"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "months", force: true do |t|
