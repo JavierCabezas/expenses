@@ -37,4 +37,12 @@ Month.create(month: 11, year: 2016, payed: false)
 Month.create(month: 12, year: 2016, payed: false)
 
 
+User.all.each do |u|
+  Month.all.each do |m|
+    days = Time.days_in_month(m.month, m.year)
+    (1..days).each do |d|
+      IsUserInHouse.create(day: d, was_at_home: true, month_id: m.id, user_id: u.id )
+    end
+  end
+end
 
