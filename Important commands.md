@@ -52,6 +52,11 @@ Creating a table with a (simple) relation to another:
 
     Finish the process by running rake db:migrate
 
+Easy way to define a relation to another table:
+    
+    rails g migration (migration name) (other_table_name):references
+    Ex:   rails g migration AddMonthReferenceToIsUserInHouse month:references
+
 How to add new gems (extensions):
 
     First we must add the gem on the Gemfile file (that's redundant)
