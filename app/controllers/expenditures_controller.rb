@@ -62,6 +62,13 @@ class ExpendituresController < ApplicationController
     end
   end
 
+  def month_detail
+    month_id = 17 #@todo: Make this come from the database by using a dropdown
+    @days_in_month = 30   #@todo: Make this come from the selected month
+
+    @days_per_user = IsUserInHouse.where(was_at_home: true, month_id: month_id).group(:user_id).pluck(:user_id, 'count(*)')
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_expenditure

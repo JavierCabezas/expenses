@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   get 'is_user_in_house_controller/index'
   get 'is_user_in_house' => 'is_user_in_house_controller#index'
 
-  resources :expenditures
+  resources :expenditures do
+    collection do
+      get 'month_detail'
+    end
+  end
 
   resources :expense_types
 
