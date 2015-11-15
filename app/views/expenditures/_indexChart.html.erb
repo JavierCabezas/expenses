@@ -1,0 +1,10 @@
+<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+<%
+   #@todo: use bootstrap tabs to separate each of the charts
+%>
+
+<h3> Total by expense type:</h3>
+<%= bar_chart  Expenditure.array_chart_expense_type %>
+
+<h3> Total by person:</h3>
+<%= bar_chart  Expenditure.array_chart_expense_by_user %>
