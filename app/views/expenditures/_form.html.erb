@@ -34,7 +34,7 @@
 
       <div class="pure-control-group">
         <%= f.label :status %>
-        <%= f.text_field :status , :class => "pure-input-1-4"%>
+        <%= f.select :status, Expenditure.array_statuses, {}, {:class => "pure-input-1-4" } %>
       </div>
 
       <div class="pure-control-group">

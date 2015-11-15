@@ -3,8 +3,9 @@ class ExpendituresController < ApplicationController
 
   # GET /expenditures
   # GET /expenditures.json
+  # Shows all the expenditures with status = Overdue
   def index
-    @expenditures = Expenditure.all
+    @expenditures = Expenditure.all.where(status: 0)
   end
 
   # GET /expenditures/1
@@ -69,6 +70,6 @@ class ExpendituresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def expenditure_params
-      params.require(:expenditure).permit(:ammount, :status, :comment)
+      params.require(:expenditure).permit(:ammount, :status, :comment, :user_id, :expense_type_id, :month_id)
     end
 end

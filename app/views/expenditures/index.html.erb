@@ -1,9 +1,12 @@
-<h1>Listing expenditures</h1>
+<h1>Pending expenditures</h1>
 
-<table>
+<table class="pure-table">
   <thead>
     <tr>
+      <th>Expense type</th>
       <th>Ammount</th>
+      <th>Paid by</th>
+      <th>Date</th>
       <th>Status</th>
       <th>Comment</th>
       <th colspan="3"></th>
@@ -13,8 +16,11 @@
   <tbody>
     <% @expenditures.each do |expenditure| %>
       <tr>
-        <td><%= expenditure.ammount %></td>
-        <td><%= expenditure.status %></td>
+        <td><%= expenditure.expense_type.name %></td>
+        <td><%= number_to_currency( expenditure.ammount, :precision => 0 ) %></td>
+        <td><%= expenditure.user.username %></td>
+        <td><%= expenditure.month.month_and_year %></td>
+        <td><%= Expenditure.array_statuses[expenditure.status] %></td>
         <td><%= expenditure.comment %></td>
         <td><%= link_to 'Show', expenditure %></td>
         <td><%= link_to 'Edit', edit_expenditure_path(expenditure) %></td>
@@ -28,11 +34,6 @@
 
 <%= link_to 'New Expenditure', new_expenditure_path %>
 
-
 <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
 
-<%= timeline [
-                     ["Washington", "1789-04-29", "1797-03-03"],
-                     ["Adams", "1797-03-03", "1801-03-03"],
-                     ["Jefferson", "1801-03-03", "1809-03-03"]
-             ] %>
+<%= bar_chart  Expenditure.array_chart %>

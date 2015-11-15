@@ -1,13 +1,29 @@
 <p id="notice"><%= notice %></p>
 
+
+<p>
+  <strong>Paid by:</strong>
+  <%= @expenditure.user.username %>
+</p>
+
+<p>
+  <strong>Expense type:</strong>
+  <%= @expenditure.expense_type.name %>
+</p>
+
+<p>
+  <strong> Date </strong>
+  <%= @expenditure.month.month_and_year %>
+</p>
+
 <p>
   <strong>Ammount:</strong>
-  <%= @expenditure.ammount %>
+  <%= number_to_currency( @expenditure.ammount, :precision => 0 ) %>
 </p>
 
 <p>
   <strong>Status:</strong>
-  <%= @expenditure.status %>
+  <%= Expenditure.array_statuses[@expenditure.status] %>
 </p>
 
 <p>
