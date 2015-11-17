@@ -1,0 +1,19 @@
+<table class="pure-table">
+  <thead>
+  <tr>
+    <th>Person</th>
+    <th># days at home</th>
+    <th> % of month </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @days_per_user.each do |dayusu| %>
+      <tr>
+        <td> <%= User.find_by_id(dayusu[0]).username %></td>
+        <td> <%= dayusu[1] %></td>
+        <td> <%= number_to_percentage( 100*dayusu[1]/@days_in_month, precision: 0) %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
