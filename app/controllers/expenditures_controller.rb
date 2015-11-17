@@ -63,8 +63,16 @@ class ExpendituresController < ApplicationController
   end
 
   def month_detail
+    expense_per_user = {} #Hash in where to store each of the expenses for each of the users
     month_id = 17 #@todo: Make this come from the database by using a dropdown
     @days_in_month = 30   #@todo: Make this come from the selected month
+    @users = User.all
+
+
+    @users.each do |usu|
+      expense_user = Expenditure.where( month_id:month_id, user_id:usu.id ).group(:expense_type_id).pluck(:expense_type_id, 'sum(ammount)')
+      expense_per_user[usu.id] = expense_user;
+    end
 
     @days_per_user = IsUserInHouse.where(was_at_home: true, month_id: month_id).group(:user_id).pluck(:user_id, 'count(*)')
   end
