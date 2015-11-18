@@ -1,0 +1,29 @@
+<%
+##
+# This table shows a small summary of how much did every user pay for
+# each of the different expenditure types on the selected month.
+#
+%>
+
+<h2> Money spent for the month per user </h2>
+
+<table class="pure-table">
+  <thead>
+  <tr>
+    <th>  </th>
+    <% @users.each do |usu| %>
+        <th><%= usu.username %></th>
+    <% end %>
+  </tr>
+  </thead>
+  <tbody>
+    <% @expenditure_types.each do |exp_type| %>
+      <tr>
+        <td> <%= exp_type.name %></td>
+        <% @users.each do |usu| %>
+            <td> <%= number_to_currency( Expenditure.user_has_expenditure( @expense_per_user[usu.id], exp_type.id ), :precision => 0 ) %> </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
