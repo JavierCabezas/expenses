@@ -67,10 +67,13 @@ class ExpendituresController < ApplicationController
     @total_expense_per_user = {} #The total ammount that each user has as expenses
     @days_per_user = {} # Hash that stores the user name, id and number of days that he/she was at the appartment for that month.
                         # format: hash[user_id]['name'] = 'Name', hash[user_id]['days'] = 'Number of days that the person was at the apt' hash[user_id]['id'] = 'Id of the person'
+    @expense_ammount_per_type = { } #Stores each of the expenses in the format ['name'] = 'Name' , ['ammount'] = 'Ammount of money for this expense'
+
+
     month_id = 17 #@todo: Make this come from the database by using a dropdown
 
-
     @days_in_month = 30   #@todo: Make this come from the selected month
+    @month_name = 'November/2015';
     @users = User.all
     @expenditure_types = ExpenseType.all
 
@@ -89,6 +92,11 @@ class ExpendituresController < ApplicationController
       @days_per_user[usu.id] = temp
     end
 
+    #@todo: Make this query not sucky. Use relations to get the name.
+    Expenditure.where(month_id: month_id).group(:expense_type_id).sum(:ammount).each do |expense_id, quantity|
+      temp_name = ExpenseType.find_by_id(expense_id).name
+      @expense_ammount_per_type[temp_name] = quantity
+    end
 
   end
 
