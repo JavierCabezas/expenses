@@ -17,11 +17,11 @@
   </thead>
 
   <tbody>
-  <% @days_per_user.each do |dayusu| %>
+  <% @days_per_user.each do |key, dayusu| %>
       <tr>
-        <td> <%= User.find_by_id(dayusu[0]).username %></td>
-        <td> <%= dayusu[1] %></td>
-        <td> <%= number_to_percentage( 100*dayusu[1]/@days_in_month, precision: 0) %></td>
+        <td> <%= dayusu['name'] %></td>
+        <td> <%= dayusu['days'].to_s %></td>
+        <td> <%= number_to_percentage( 100*dayusu['days']/@days_in_month, precision: 0) %></td>
       </tr>
   <% end %>
   </tbody>

@@ -17,13 +17,32 @@
   </tr>
   </thead>
   <tbody>
+
+
     <% @expenditure_types.each do |exp_type| %>
       <tr>
         <td> <%= exp_type.name %></td>
         <% @users.each do |usu| %>
             <td> <%= number_to_currency( Expenditure.user_has_expenditure( @expense_per_user[usu.id], exp_type.id ), :precision => 0 ) %> </td>
-        <% end %>
+        <% end # end of user loop%>
       </tr>
-    <% end %>
+    <% end #end of expenditure loop %>
+
+
+    <tr>
+      <td> <b> Total </b> </td>
+      <% @users.each do |usu| %>
+        <td> <b> <%= number_to_currency( @total_expense_per_user[usu.id], :precision => 0 ) %> </b> </td>
+      <% end # end of user loop%>
+    </tr>
+
+    <tr>
+      <td> <b> Proportional total </b> </td>
+      <% @users.each do |usu| %>
+          <td> <b> <%= number_to_currency( @total_expense_per_user[usu.id] * @days_per_user[usu.id]['days']/@days_in_month, :precision => 0 ) %> </b> </td>
+      <% end # end of user loop%>
+    </tr>
+
+
   </tbody>
 </table>
