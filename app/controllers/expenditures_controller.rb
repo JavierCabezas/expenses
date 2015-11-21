@@ -78,13 +78,15 @@ class ExpendituresController < ApplicationController
     @expenditure_types = ExpenseType.all
 
     @users.each do |usu|
+      days_user        = IsUserInHouse.where(was_at_home: true, month_id: month_id, user_id: usu.id).count()
+
       expense_user = Expenditure.where( month_id:month_id, user_id:usu.id ).group(:expense_type_id).pluck(:expense_type_id, 'sum(ammount)')
       @expense_per_user[usu.id] = expense_user;
 
       total_expense_user = Expenditure.where( month_id:month_id, user_id:usu.id ).sum(:ammount)
       @total_expense_per_user[usu.id] = total_expense_user;
 
-      days_user = IsUserInHouse.where(was_at_home: true, month_id: month_id, user_id: usu.id).count()
+
       temp = { }
       temp['id'] = usu.id
       temp['name'] = usu.username

@@ -17,6 +17,23 @@ class Expenditure < ActiveRecord::Base
   end
 
   ##
+  # This function returns the constant that the user will be multiplied for each of the expenses.
+  # This can be calculated by two different methods:
+  #    1) If the bill has a fixed cost (that means that it does not matter if you were at home or not for the bill to go up) then we just divide by the number of users.
+  #    2) If the bill is variable its calculated by getting the days that you were at home and then divided by the number of days that the others were at home
+  #
+  def expense_ponderation_constant( month_id, user_id, expense)
+    if expense.expense_type.is_fixed_cost
+        number_of_users = User.all.count()
+        return 1 / number_of_users
+    else
+      days_user        = IsUserInHouse.where(was_at_home: true, month_id: month_id, user_id: user_id).count()
+      days_other_users = IsUserInHouse.where(was_at_home: true, month_id: month_id).count() - days_user
+      return days_user / days_other_users
+    end
+  end
+
+  ##
   #  This function returns the ammount of a single expenditure that the user has.
   #  It recieves:
   #    expense_per_user: an array that have multiple arrays. Each of these arrays has the format array[0] = expense_id and array[1] = expense ammount.
