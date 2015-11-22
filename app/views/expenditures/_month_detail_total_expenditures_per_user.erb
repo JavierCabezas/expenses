@@ -37,10 +37,8 @@
     </tr>
 
     <tr>
-      <td> <b> Proportional total </b> </td>
-      <% @users.each do |usu| %>
-          <td> <b> <%= number_to_currency( @total_expense_per_user[usu.id] * @days_per_user[usu.id]['days']/@days_in_month, :precision => 0 ) %> </b> </td>
-      <% end # end of user loop%>
+      <td> <b> Total expenses </b> </td>
+      <td colspan="<%= @users.count %>"> <b> <%= number_to_currency(  @total_expenses, :precision => 0 ) %></b> </td>
     </tr>
 
 

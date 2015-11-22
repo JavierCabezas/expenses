@@ -22,15 +22,53 @@ class Expenditure < ActiveRecord::Base
   #    1) If the bill has a fixed cost (that means that it does not matter if you were at home or not for the bill to go up) then we just divide by the number of users.
   #    2) If the bill is variable its calculated by getting the days that you were at home and then divided by the number of days that the others were at home
   #
-  def expense_ponderation_constant( month_id, user_id, expense)
-    if expense.expense_type.is_fixed_cost
-        number_of_users = User.all.count()
-        return 1 / number_of_users
-    else
-      days_user        = IsUserInHouse.where(was_at_home: true, month_id: month_id, user_id: user_id).count()
-      days_other_users = IsUserInHouse.where(was_at_home: true, month_id: month_id).count() - days_user
-      return days_user / days_other_users
+  def self.expense_ponderation_constant( expense, user_id )
+    if user_id == expense.user_id #If the user already payed the bill then he/she shouldn't be considered to pay it again (of course)
+      return 0
     end
+
+    if expense.expense_type.is_fixed_cost
+      number_of_users = User.all.count()
+      return 1 / number_of_users if number_of_users > 0
+    else
+      days_user        = IsUserInHouse.where(was_at_home: true, month_id: expense.month_id, user_id: user_id).count()
+      days_other_users = IsUserInHouse.where(was_at_home: true, month_id: expense.month_id).count() - days_user
+      return days_user.to_f / days_other_users if days_other_users != 0
+    end
+  end
+
+  #Virtual attribute for the reason of the bill
+  #Format: (type_of_bill) (date)
+  def reason
+    return self.expense_type.name + ' for ' + self.created_at.to_s(:short)
+  end
+
+
+  def self.expenditures_per_user( expenditures, users )
+    out = {}
+
+    users.each do |usr|
+      out[usr.id] = {}
+      out[usr.id]['total'] = 0
+      out[usr.id]['details'] = []
+    end
+
+    expenditures.each do |exp|
+      users.each do |usr|
+        if exp.user_id != usr.id
+          proportion_constant = Expenditure.expense_ponderation_constant( exp, usr.id )
+          temp = { }
+          temp['ammount'] =  (exp.ammount * proportion_constant).to_i
+          temp['pay_to'] = exp.user_id
+          temp['because'] = exp.reason
+          out[usr.id]['total'] += (exp.ammount * proportion_constant).to_i
+          out[usr.id]['details'].push( temp )
+        end
+      end
+    end
+
+    return out
+
   end
 
   ##

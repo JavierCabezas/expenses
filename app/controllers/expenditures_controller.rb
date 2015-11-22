@@ -65,6 +65,7 @@ class ExpendituresController < ApplicationController
   def month_detail
     @expense_per_user = {} #Hash in where to store each of the expenses for each of the users
     @total_expense_per_user = {} #The total ammount that each user has as expenses
+    @total_expenses = 0
     @days_per_user = {} # Hash that stores the user name, id and number of days that he/she was at the appartment for that month.
                         # format: hash[user_id]['name'] = 'Name', hash[user_id]['days'] = 'Number of days that the person was at the apt' hash[user_id]['id'] = 'Id of the person'
     @expense_ammount_per_type = { } #Stores each of the expenses in the format ['name'] = 'Name' , ['ammount'] = 'Ammount of money for this expense'
@@ -76,14 +77,17 @@ class ExpendituresController < ApplicationController
     @month_name = 'November/2015';
     @users = User.all
     @expenditure_types = ExpenseType.all
+    @all_expenses = Expenditure.order(:user_id).all #used for the _month_defatil_expense_detail_table
+    @pending_expenditure_per_user = Expenditure.expenditures_per_user( @all_expenses, @users )
 
     @users.each do |usu|
-      days_user        = IsUserInHouse.where(was_at_home: true, month_id: month_id, user_id: usu.id).count()
+      days_user = IsUserInHouse.where(was_at_home: true, month_id: month_id, user_id: usu.id).count()
 
       expense_user = Expenditure.where( month_id:month_id, user_id:usu.id ).group(:expense_type_id).pluck(:expense_type_id, 'sum(ammount)')
       @expense_per_user[usu.id] = expense_user;
 
       total_expense_user = Expenditure.where( month_id:month_id, user_id:usu.id ).sum(:ammount)
+      @total_expenses += total_expense_user
       @total_expense_per_user[usu.id] = total_expense_user;
 
 
