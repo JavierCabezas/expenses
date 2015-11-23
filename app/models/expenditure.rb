@@ -32,8 +32,8 @@ class Expenditure < ActiveRecord::Base
       return 1 / number_of_users if number_of_users > 0
     else
       days_user        = IsUserInHouse.where(was_at_home: true, month_id: expense.month_id, user_id: user_id).count()
-      days_other_users = IsUserInHouse.where(was_at_home: true, month_id: expense.month_id).count() - days_user
-      return days_user.to_f / days_other_users if days_other_users != 0
+      days_all_users   = IsUserInHouse.where(was_at_home: true, month_id: expense.month_id).count()
+      return days_user.to_f / days_all_users if days_all_users != 0
     end
   end
 
@@ -49,19 +49,25 @@ class Expenditure < ActiveRecord::Base
 
     users.each do |usr|
       out[usr.id] = {}
-      out[usr.id]['total'] = 0
       out[usr.id]['details'] = []
+      out[usr.id]['totals'] = {}
+      out[usr.id]['totals'][0] = 0 #This is the combined ammount
+      users.each do |usr2|
+        out[usr.id]['totals'][usr2.id] = 0 #This is the ammount per user
+      end
     end
 
     expenditures.each do |exp|
       users.each do |usr|
         if exp.user_id != usr.id
           proportion_constant = Expenditure.expense_ponderation_constant( exp, usr.id )
+          ammount = (exp.ammount * proportion_constant).to_i
           temp = { }
-          temp['ammount'] =  (exp.ammount * proportion_constant).to_i
+          temp['ammount'] =  ammount
           temp['pay_to'] = exp.user_id
           temp['because'] = exp.reason
-          out[usr.id]['total'] += (exp.ammount * proportion_constant).to_i
+          out[usr.id]['totals'][0] += ammount
+          out[usr.id]['totals'][exp.user_id] += ammount
           out[usr.id]['details'].push( temp )
         end
       end
