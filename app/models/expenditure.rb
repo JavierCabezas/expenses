@@ -48,12 +48,12 @@ class Expenditure < ActiveRecord::Base
     out = {}
 
     users.each do |usr|
-      out[usr.id] = {}
-      out[usr.id]['details'] = []
-      out[usr.id]['totals'] = {}
-      out[usr.id]['totals'][0] = 0 #This is the combined ammount
+      out[usr.username] = {}
+      out[usr.username]['details'] = []
+      out[usr.username]['totals'] = {}
+      out[usr.username]['totals']['Sum'] = 0 #This is the combined ammount
       users.each do |usr2|
-        out[usr.id]['totals'][usr2.id] = 0 #This is the ammount per user
+        out[usr.username]['totals'][usr2.username] = 0 #This is the ammount per user
       end
     end
 
@@ -64,11 +64,11 @@ class Expenditure < ActiveRecord::Base
           ammount = (exp.ammount * proportion_constant).to_i
           temp = { }
           temp['ammount'] =  ammount
-          temp['pay_to'] = exp.user_id
+          temp['pay_to'] = exp.user.username
           temp['because'] = exp.reason
-          out[usr.id]['totals'][0] += ammount
-          out[usr.id]['totals'][exp.user_id] += ammount
-          out[usr.id]['details'].push( temp )
+          out[usr.username]['totals']['Sum'] += ammount
+          out[usr.username]['totals'][exp.user.username] += ammount
+          out[usr.username]['details'].push( temp )
         end
       end
     end
