@@ -1,28 +1,27 @@
 <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
 
-<%= pie_chart @expense_ammount_per_type %>
-
+<p> &nbsp; </p>
 <div class="pure-g">
-  <div class="pure-u-1-4">  </div>
   <div class="pure-u-1-2">
-     <table class="pure-table">
+    <%= pie_chart @expense_ammount_per_type %>
+  </div>
+  <div class="pure-u-1-2">
+    <table class="pure-table">
          <thead>
-             <tr>
-               <th> Expense </th>
-               <th> Ammount </th>
-             </tr>
+         <tr>
+           <th> Expense </th>
+           <th> Ammount </th>
+         </tr>
          </thead>
 
          <tbody>
-             <% @expense_ammount_per_type.each do |expense_name, expense_quantity| %>
-                 <tr>
-                     <td> <%= expense_name %> </td>
-                     <td> <%= number_to_currency(expense_quantity, :precision => 0 ) %> </td>
-                 </tr>
-             <% end %>
+         <% @expense_ammount_per_type.each do |expense_name, expense_quantity| %>
+             <tr>
+               <td> <%= expense_name %> </td>
+               <td> <%= number_to_currency(expense_quantity, :precision => 0 ) %> </td>
+             </tr>
+         <% end %>
          </tbody>
-
      </table>
   </div>
-  <div class="pure-u-1-4">  </div>
 </div>
