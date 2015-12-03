@@ -7,22 +7,29 @@
 
 <h2> Days at home per user </h2>
 
-<table class="pure-table">
-  <thead>
-  <tr>
-    <th>Person</th>
-    <th># days at home</th>
-    <th> % of month </th>
-  </tr>
-  </thead>
-
-  <tbody>
-  <% @days_per_user.each do |key, dayusu| %>
+<div class="pure-g">
+  <div class="pure-u-1-3">
+    <table class="pure-table">
+      <thead>
       <tr>
-        <td> <%= dayusu['name'] %></td>
-        <td> <%= dayusu['days'].to_s %></td>
-        <td> <%= number_to_percentage( 100*dayusu['days']/@days_in_month, precision: 0) %></td>
+        <th>Person</th>
+        <th># days at home</th>
+        <th> % of month </th>
       </tr>
-  <% end %>
-  </tbody>
-</table>
+      </thead>
+
+      <tbody>
+      <% @days_per_user.each do |key, dayusu| %>
+          <tr>
+            <td> <%= dayusu['name'] %></td>
+            <td> <%= dayusu['days'].to_s %></td>
+            <td> <%= number_to_percentage( 100*dayusu['days']/@days_in_month, precision: 0) %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="pure-u-2-3">
+    <%= render('expenditures/month_detail_days_at_home_table_calendar') %>
+  </div>
+</div>
