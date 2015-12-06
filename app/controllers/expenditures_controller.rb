@@ -78,7 +78,7 @@ class ExpendituresController < ApplicationController
     @users = User.all
     @user_count = @users.count
     @expenditure_types = ExpenseType.all
-    @all_expenses = Expenditure.order(:user_id).all #used for the _month_defatil_expense_detail_table
+    @all_expenses = Expenditure.where(month_id: @selected_month_id, status: 0).order(:user_id).all #used for the _month_defatil_expense_detail_table
     @pending_expenditure_per_user = Expenditure.expenditures_per_user( @all_expenses, @users )
 
     @users.each do |usu|
@@ -91,7 +91,6 @@ class ExpendituresController < ApplicationController
       @total_expenses += total_expense_user
       @total_expense_per_user[usu.id] = total_expense_user;
 
-
       temp = { }
       temp['id'] = usu.id
       temp['name'] = usu.username
@@ -100,7 +99,7 @@ class ExpendituresController < ApplicationController
     end
 
     #@todo: Make this query not sucky. Use relations to get the name.
-    Expenditure.where(month_id: @selected_month_id).group(:expense_type_id).sum(:ammount).each do |expense_id, quantity|
+    Expenditure.where(month_id: @selected_month_id, status: 0).group(:expense_type_id).sum(:ammount).each do |expense_id, quantity|
       temp_name = ExpenseType.find_by_id(expense_id).name
       @expense_ammount_per_type[temp_name] = quantity
     end
