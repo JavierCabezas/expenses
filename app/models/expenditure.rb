@@ -29,7 +29,7 @@ class Expenditure < ActiveRecord::Base
 
     if expense.expense_type.is_fixed_cost
       number_of_users = User.all.count()
-      return 1 / number_of_users if number_of_users > 0
+      return 1.to_f / number_of_users if number_of_users > 0
     else
       days_user        = IsUserInHouse.where(was_at_home: true, month_id: expense.month_id, user_id: user_id).count()
       days_all_users   = IsUserInHouse.where(was_at_home: true, month_id: expense.month_id).count()
