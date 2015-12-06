@@ -6,7 +6,6 @@
     <th>Expense</th>
     <th>Ammount</th>
     <th>Paid by</th>
-    <th>Status</th>
     <th>Date</th>
   </tr>
   </thead>
@@ -17,7 +16,6 @@
         <td> <%= expense.expense_type.name %></td>
         <td> <%= number_to_currency( expense.ammount, :precision => 0 ) %></td>
         <td> <%= expense.user.username %></td>
-        <td> <%= expense.status %></td>
         <td> <%= expense.created_at.to_s(:short) %></td>
       </tr>
   <% end %>
