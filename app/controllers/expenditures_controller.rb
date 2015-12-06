@@ -71,22 +71,23 @@ class ExpendituresController < ApplicationController
     @expense_ammount_per_type = { } #Stores each of the expenses in the format ['name'] = 'Name' , ['ammount'] = 'Ammount of money for this expense'
 
 
-    month_id = 17 #@todo: Make this come from the database by using a dropdown
+    @selected_month_id = 18 #@todo: Make this come from the database by using a dropdown
 
     @days_in_month = 30   #@todo: Make this come from the selected month
     @month_name = 'November/2015';
     @users = User.all
+    @user_count = @users.count
     @expenditure_types = ExpenseType.all
     @all_expenses = Expenditure.order(:user_id).all #used for the _month_defatil_expense_detail_table
     @pending_expenditure_per_user = Expenditure.expenditures_per_user( @all_expenses, @users )
 
     @users.each do |usu|
-      days_user = IsUserInHouse.where(was_at_home: true, month_id: month_id, user_id: usu.id).count()
+      days_user = IsUserInHouse.where(was_at_home: true, month_id: @selected_month_id, user_id: usu.id).count()
 
-      expense_user = Expenditure.where( month_id:month_id, user_id:usu.id ).group(:expense_type_id).pluck(:expense_type_id, 'sum(ammount)')
+      expense_user = Expenditure.where( month_id:@selected_month_id, user_id:usu.id ).group(:expense_type_id).pluck(:expense_type_id, 'sum(ammount)')
       @expense_per_user[usu.id] = expense_user;
 
-      total_expense_user = Expenditure.where( month_id:month_id, user_id:usu.id ).sum(:ammount)
+      total_expense_user = Expenditure.where( month_id:@selected_month_id, user_id:usu.id ).sum(:ammount)
       @total_expenses += total_expense_user
       @total_expense_per_user[usu.id] = total_expense_user;
 
@@ -99,10 +100,12 @@ class ExpendituresController < ApplicationController
     end
 
     #@todo: Make this query not sucky. Use relations to get the name.
-    Expenditure.where(month_id: month_id).group(:expense_type_id).sum(:ammount).each do |expense_id, quantity|
+    Expenditure.where(month_id: @selected_month_id).group(:expense_type_id).sum(:ammount).each do |expense_id, quantity|
       temp_name = ExpenseType.find_by_id(expense_id).name
       @expense_ammount_per_type[temp_name] = quantity
     end
+
+    @was_at_home = IsUserInHouse.where(month_id: @selected_month_id).order(:day).all.to_a
 
   end
 

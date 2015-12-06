@@ -1,0 +1,11 @@
+<%= month_calendar do |date| %>
+    <%= date %>
+    <% if ( Month.give_month_id_by_date( date ) == @selected_month_id )  #If its a valid month on the database %>
+        <% @user_count.times do %>
+            <p class="text-pill text-pill-<%= @was_at_home[0].was_at_home ? 'ok' : 'fail' %> ">
+                <%= @was_at_home[0].user.username  %>
+                <% @was_at_home.shift unless !@was_at_home #shift if the array is not nil %>
+            </p>
+        <% end %>
+    <% end %>
+<% end %>
