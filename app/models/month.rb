@@ -4,6 +4,7 @@ class Month < ActiveRecord::Base
 
   validates_uniqueness_of :month, :scope => :year
 
+  #Returns the month and year (in text) of the instance of this model. Ex: November / 2015.
   def month_and_year
     Date::MONTHNAMES[self.month] + '/' + self.year.to_s
   end
@@ -24,5 +25,14 @@ class Month < ActiveRecord::Base
 
     Hash[months.map{|instance|[instance.month_and_year, instance.id]}]
 
+  end
+
+  def self.get_current_month_id
+    m = Month.where(month: Date.today.strftime("%m"), year: Date.today.strftime("%Y")).first
+    if(m)
+      return m.id
+    else
+      return Month.first.id
+    end
   end
 end

@@ -71,10 +71,14 @@ class ExpendituresController < ApplicationController
     @expense_ammount_per_type = { } #Stores each of the expenses in the format ['name'] = 'Name' , ['ammount'] = 'Ammount of money for this expense'
 
 
-    @selected_month_id = 18 #@todo: Make this come from the database by using a dropdown
+    if params['month_id'].present?
+      @selected_month_id = params['month_id']
+    else
+      @selected_month_id = Month.get_current_month_id
+    end
 
     @days_in_month = 30   #@todo: Make this come from the selected month
-    @month_name = 'November/2015';
+    @month_name = Month.find(@selected_month_id).month_and_year
     @users = User.all
     @user_count = @users.count
     @expenditure_types = ExpenseType.all

@@ -1,4 +1,17 @@
 <h1> Expenses analysis per user for <%= @month_name%> </h1>
+</br>
+<div class="pure-g">
+  <div class="pure-u-1-3"> &nbsp; </div>
+  <div class="pure-u-1-3">
+    <p>Filter by month: </p>
+    <form action="month_detail" method="get">
+        <%= label_tag :month_id %>
+        <%= select_tag "month_id", options_from_collection_for_select(Month.all, "id", "month_and_year") %>
+        <%= submit_tag("Filtrar") %>
+    </form>
+  </div>
+  <div class="pure-u-1-3"> &nbsp; </div>
+</div> </br>
 
 <div class="tabbable tabs-left">
   <ul class="nav nav-tabs">
