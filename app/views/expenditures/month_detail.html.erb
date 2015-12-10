@@ -16,7 +16,7 @@
 <div class="tabbable tabs-left">
   <ul class="nav nav-tabs">
     <% #@todo: Select the first tab by default %>
-    <li class="<%= 'active' if params[:tab] == 'tab_total_expense_by_type'  %>"><a href="#tab_total_expense_by_type" data-toggle="tab">Total of expenses by type</a></li>
+    <li class="<%= 'active' if params[:tab] == 'tab_total_expense_by_type' || !params[:tab] %>"><a href="#tab_total_expense_by_type" data-toggle="tab">Total of expenses by type</a></li>
     <li class="<%= 'active' if params[:tab] == 'tab_days_at_home' %>"><a href="#tab_days_at_home" data-toggle="tab">Days at home per user</a></li>
     <li class="<%= 'active' if params[:tab] == 'tab_money_spent' %>"> <a href="#tab_money_spent" data-toggle="tab">Money Spent by month per user</a></li>
     <li class="<%= 'active' if params[:tab] == 'tab_all_expenses' %>"> <a href="#tab_all_expenses" data-toggle="tab">All the expenses</a></li>
@@ -24,10 +24,10 @@
   </ul>
 
   <div class="tab-content">
-    <div class="<%= if (params[:tab] == 'tab_total_expense_by_type' || !params[:tab])then 'tab-pane active'  else 'tab-pane' end%>" id="tab_total_expense_by_type">
+    <div class="<%= if (params[:tab] == 'tab_total_expense_by_type' || !params[:tab]) then 'tab-pane active'  else 'tab-pane' end%>" id="tab_total_expense_by_type">
       <%= render 'expenditures/month_detail_expenses_chart' %>
     </div>
-    <div class="<%= if (params[:tab] == 'tab_days_at_home' || !params[:tab])then 'tab-pane active'  else 'tab-pane' end%>" id="tab_days_at_home">
+    <div class="<%= if (params[:tab] == 'tab_days_at_home') then 'tab-pane active'  else 'tab-pane' end%>" id="tab_days_at_home">
       <%= render 'expenditures/month_detail_days_at_home_table' %>
     </div>
     <div class="<%= if params[:tab] == 'tab_money_spent' then 'tab-pane active'  else 'tab-pane' end%>" id="tab_money_spent">
@@ -36,7 +36,7 @@
     <div class="<%= if params[:tab] == 'tab_all_expenses' then 'tab-pane active'  else 'tab-pane' end%>" id="tab_all_expenses">
       <%= render 'expenditures/month_detail_expense_detail_table' %>
     </div>
-    <div class="<%= if (params[:tab] == 'tab_money_owed_per_user' || !params[:tab])then 'tab-pane active'  else 'tab-pane' end%>" id="tab_money_owed_per_user">
+    <div class="<%= if (params[:tab] == 'tab_money_owed_per_user' )then 'tab-pane active'  else 'tab-pane' end%>" id="tab_money_owed_per_user">
       <%= render 'expenditures/month_detail_owed_per_user' %>
     </div>
   </div>
